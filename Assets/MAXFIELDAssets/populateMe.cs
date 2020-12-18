@@ -8,7 +8,7 @@ public class populateMe : MonoBehaviour
     public GameObject levelLayout;
     private List<Transform> wallLocations = new List<Transform>();
     public GameObject obstacle;
-    public GameObject enemy;
+    public GameObject enemy, enemy2, enemy3;
 
     private bool enemies = false;
     private bool obstacles = false;

@@ -234,7 +234,9 @@ MonoBehaviour:
   levelLayout: {fileID: 4271373524256694076}
   obstacle: {fileID: 8594662393962773592, guid: 4cd79270fe20147489759bcc31403540,
     type: 3}
-  enemy: {fileID: 8553947742581856778, guid: ea1f5a6cea133463b990598d352f088c, type: 3}
+  enemy: {fileID: 2540260029168611161, guid: 7cbea2241ae25c54bb5a47a3628cfc4d, type: 3}
+  enemy2: {fileID: 6487456327006630802, guid: 7e9b42fb3378d3b4eb1f5999b2822299, type: 3}
+  enemy3: {fileID: 2649340089428372905, guid: 27d35d29f635057469841e38b515ced2, type: 3}
 --- !u!1 &4271373523021499589
 GameObject:
   m_ObjectHideFlags: 0
