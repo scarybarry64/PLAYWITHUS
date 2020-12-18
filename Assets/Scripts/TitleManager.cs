@@ -52,6 +52,7 @@ public class TitleManager : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(1.5f);
 
-        SceneManager.LoadScene("GameScene");
+        //SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("TEST");
     }
 }
