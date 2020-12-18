@@ -7,7 +7,7 @@ public class populateMe : MonoBehaviour
 {
     public GameObject levelLayout;
     private List<Transform> wallLocations = new List<Transform>();
-    public GameObject obstacle;
+    public GameObject obstacle, obstacle2, obstacle3;
     public GameObject enemy, enemy2, enemy3;
 
     private bool enemies = false;
@@ -20,6 +20,8 @@ public class populateMe : MonoBehaviour
     private int currGridSize = 0;
 
     private List<GameObject> objectsInScene = new List<GameObject>();
+
+    private float objYValue = 0.0f;
 
     // Start is called before the first frame update
     public void populateLevel(int gridSectionsPerRow, float relativeLevelPos)
@@ -77,18 +79,20 @@ public class populateMe : MonoBehaviour
         Vector2 index = convertToCoord(currRan, gridSectionsPerRow);
 
         prevObstacle = (instantObj == obstacle);
-        if(instantObj == enemy)
+        if(instantObj == enemy || instantObj == enemy2 || instantObj == enemy3)
         {
           prevEnemy = instantObj;
+          objYValue = Mathf.Floor((instantObj.GetComponent<BoxCollider>().size.y)/2);
+        }
+        else
+        {
+          objYValue = 0.0f;
         }
 
         locations.Remove(currRan);
         Vector2 positionsNew = grid[(int)index.x, (int)index.y];
-        objectsInScene.Add(Instantiate(instantObj, new Vector3(positionsNew.x, 0, positionsNew.y), Quaternion.identity, gameObject.GetComponent<Transform>()));
+        objectsInScene.Add(Instantiate(instantObj, new Vector3(positionsNew.x, objYValue, positionsNew.y), Quaternion.identity, gameObject.GetComponent<Transform>()));
       }
-
-      //Add in the pathfinding
-      // verifyPath();
     }
 
     private Vector2 convertToCoord(int toConv, int gridSectionsPerRow)
@@ -126,7 +130,38 @@ public class populateMe : MonoBehaviour
       if(finalChoice == true)
       {
         enemyCount = enemyCount + 1;
-        return enemy;
+        return pickEnemy();
+      }
+      return pickObstacle();
+    }
+
+    private GameObject pickEnemy()
+    {
+      int prob = Random.Range(0, 80);
+
+      if(prob <= 40 && prob > 15)
+      {
+        return enemy2;
+      }
+      else if(prob <= 15 && prob >= 0)
+      {
+        return enemy3;
+      }
+
+      return enemy;
+    }
+
+    private GameObject pickObstacle()
+    {
+      int choice = Random.Range(1, 4);
+
+      if(choice == 2)
+      {
+        return obstacle2;
+      }
+      else if(choice == 3)
+      {
+        return obstacle3;
       }
       return obstacle;
     }

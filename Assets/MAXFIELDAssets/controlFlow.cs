@@ -55,7 +55,7 @@ public class controlFlow : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-      if(Time.realtimeSinceStartup > destructionTime)
+      if(Time.realtimeSinceStartup > destructionTime && other.gameObject.name == "Player")
       {
         if(destructionCount == 1)
         {
