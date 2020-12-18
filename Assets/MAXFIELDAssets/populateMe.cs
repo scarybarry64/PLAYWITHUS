@@ -160,9 +160,4 @@ public class populateMe : MonoBehaviour
     {
       return this.objectsInScene;
     }
-
-    private void OnTriggerEnter(Collider collider)
-    {
-      Debug.Log("WORKING");
-    }
 }
