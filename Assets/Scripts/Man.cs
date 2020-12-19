@@ -64,7 +64,7 @@ public class Man : MonoBehaviour
         }
         else
         {
-            agent.SetDestination(transform.position);
+            //agent.SetDestination(transform.position);
 
             if (soundFlag)
             {
@@ -93,6 +93,9 @@ public class Man : MonoBehaviour
         body.rotation = Quaternion.Euler(0, angle, 0);
         direction.Normalize();
         //body.MovePosition(transform.position + (direction * speed * Time.deltaTime));
-        agent.SetDestination(transform.position + (direction * speed * speed * speed * Time.deltaTime)); // NEEDS ADJUST
+        //agent.SetDestination(transform.position + (direction * speed * speed * speed * Time.deltaTime)); // NEEDS ADJUST
+
+        body.MovePosition(transform.position + (direction * speed * Time.deltaTime));
+
     }
 }

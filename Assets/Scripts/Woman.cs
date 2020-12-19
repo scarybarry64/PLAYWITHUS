@@ -45,6 +45,10 @@ public class Woman : MonoBehaviour
         // Code from: https://www.youtube.com/watch?v=4Wh22ynlLyk
         if (!visible && Vector3.Distance(transform.position, player.transform.position) <= detection)
         {
+
+            Debug.Log("WOMAN SEES YOU");
+
+
             body.MovePosition(transform.position + (direction * speed * Time.deltaTime));
 
             if (!soundFlag)

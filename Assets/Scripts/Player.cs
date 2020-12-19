@@ -76,89 +76,101 @@ public class Player : MonoBehaviour
     void Update()
     {
 
-        HandleLooking();
+        //HandleLooking();
         HandleMovement();
         HandleScore();
         HandleStatus();
 
     }
 
-    // Look around using mouse
-    private void HandleLooking()
-    {
+    //// Look around using mouse
+    //private void HandleLooking()
+    //{
 
-        float mouseX = Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
-        rotationX -= mouseY;
-        rotationX = Mathf.Clamp(rotationX, -90f, 90f);
-        camera.localRotation = Quaternion.Euler(rotationX, 0f, 0f);
-        transform.Rotate(Vector3.up * mouseX);
+    //    float mouseX = Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime;
+    //    float mouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
+    //    rotationX -= mouseY;
+    //    rotationX = Mathf.Clamp(rotationX, -90f, 90f);
+    //    camera.localRotation = Quaternion.Euler(rotationX, 0f, 0f);
+    //    transform.Rotate(Vector3.up * mouseX);
 
-    }
+    //}
 
     // Move using WASD or arrows, play footstep sounds
     private void HandleMovement()
     {
 
         // BARRY'S CODE
-        //float x = Input.GetAxis("Horizontal");
-        //float z = Input.GetAxis("Vertical"); // Unity uses xzy axis order
-        //Vector3 movement = transform.right * x + transform.forward * z;
-        //controller.Move(movement * speed * Time.deltaTime);
+        // Move forward/back
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical"); // Unity uses xzy axis order
+        Vector3 movement = transform.right * x + transform.forward * z;
+        controller.Move(movement * speed * Time.deltaTime);
 
-
-        //// If moving, randomly adjust footstep sound pitch and play often
-        //if ((Time.time - initialTimeSound > 0.5) && (x != 0 || z != 0))
-        //{
-
-        //    audio.SetPitch("Footstep2", Random.Range(0.1f, 1.5f));
-        //    audio.Play("Footstep2");
-        //    initialTimeSound = Time.time;
-
-        //}
-
-        // MAX'S CODE
-        var oldPos = transform.localPosition;
+        // Turn
         if (Input.GetKey(KeyCode.A))
         {
-            transform.Rotate(-Vector3.up * speed * 17 * Time.deltaTime);
+            transform.Rotate(-Vector3.up * speed * 5 * Time.deltaTime);
         }
 
         if (Input.GetKey(KeyCode.D))
         {
-            transform.Rotate(Vector3.up * speed * 17 * Time.deltaTime);
+            transform.Rotate(Vector3.up * speed * 5 * Time.deltaTime);
         }
 
-        Vector2 input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        input = Vector2.ClampMagnitude(input, 1);
 
-        Vector3 camF = camera.forward;
-        Vector3 camR = camera.right;
-
-        camF.y = 0;
-        camR.y = 0;
-
-        camF = camF.normalized;
-        camR = camR.normalized;
-
-        var newPos = (camF * input.y + camR * input.x) * speed;
-
-        var characterController = this.GetComponent<CharacterController>();
-        characterController.SimpleMove(newPos);
-
-        groundedPlayer = characterController.isGrounded;
-        if (groundedPlayer && playerVelocity.y < 0)
+        // If moving, randomly adjust footstep sound pitch and play often
+        if ((Time.time - initialTimeSound > 0.5) && (x != 0 || z != 0))
         {
-            playerVelocity.y = 0f;
+
+            audio.SetPitch("Footstep2", Random.Range(0.1f, 1.5f));
+            audio.Play("Footstep2");
+            initialTimeSound = Time.time;
+
         }
 
-        if (Input.GetButtonDown("Jump") && groundedPlayer)
-        {
-            playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
-        }
+        // MAX'S CODE
+        //var oldPos = transform.localPosition;
+        //if (Input.GetKey(KeyCode.A))
+        //{
+        //    transform.Rotate(-Vector3.up * speed * 17 * Time.deltaTime);
+        //}
 
-        playerVelocity.y += gravityValue * Time.deltaTime;
-        characterController.Move(playerVelocity * Time.deltaTime);
+        //if (Input.GetKey(KeyCode.D))
+        //{
+        //    transform.Rotate(Vector3.up * speed * 17 * Time.deltaTime);
+        //}
+
+        //Vector2 input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        //input = Vector2.ClampMagnitude(input, 1);
+
+        //Vector3 camF = camera.forward;
+        //Vector3 camR = camera.right;
+
+        //camF.y = 0;
+        //camR.y = 0;
+
+        //camF = camF.normalized;
+        //camR = camR.normalized;
+
+        //var newPos = (camF * input.y + camR * input.x) * speed;
+
+        //var characterController = this.GetComponent<CharacterController>();
+        //characterController.SimpleMove(newPos);
+
+        //groundedPlayer = characterController.isGrounded;
+        //if (groundedPlayer && playerVelocity.y < 0)
+        //{
+        //    playerVelocity.y = 0f;
+        //}
+
+        //if (Input.GetButtonDown("Jump") && groundedPlayer)
+        //{
+        //    playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+        //}
+
+        //playerVelocity.y += gravityValue * Time.deltaTime;
+        //characterController.Move(playerVelocity * Time.deltaTime);
 
     }
 
