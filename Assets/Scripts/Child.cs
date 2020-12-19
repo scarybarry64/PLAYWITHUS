@@ -11,6 +11,7 @@ public class Child : MonoBehaviour
 
     // Local variables
     private GameManager game;
+    new AudioManager audio;
     private Player player;
     private Rigidbody body;
     private Vector3 movement;
@@ -18,13 +19,14 @@ public class Child : MonoBehaviour
 
     private LayerMask mask;
     private bool inFlashlight = false;
-
+    private bool soundFlag = false;
 
 
     private void Awake()
     {
 
         game = FindObjectOfType<GameManager>();
+        audio = FindObjectOfType<AudioManager>();
         player = FindObjectOfType<Player>();
         body = GetComponent<Rigidbody>();
         speed = game.childSpeed;
@@ -36,12 +38,29 @@ public class Child : MonoBehaviour
     private void Update()
     {
 
-        if (inFlashlight && game.status == "play")
+        if (inFlashlight && !Physics.Linecast(transform.position, player.transform.position, mask))
         {
-            if (!Physics.Linecast(transform.position, player.transform.position, mask))
+
+            FollowPlayer();
+
+            if (!soundFlag) // Start playing sound on repeat
             {
-                FollowPlayer();
+                soundFlag = true;
+                audio.Play("ChildScream");
             }
+            
+
+        }
+        else
+        {
+
+            if (soundFlag)
+            {
+                soundFlag = false;
+                audio.Stop("ChildScream");
+            }
+
+
         }
 
     }

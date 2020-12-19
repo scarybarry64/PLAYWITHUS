@@ -317,8 +317,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-  - name: Static
-    clip: {fileID: 8300000, guid: a9b37b9a6f1022541bfa97a22c65f604, type: 3}
+  - name: DeathChant
+    clip: {fileID: 8300000, guid: dea5221338178d74c90515b857ff4228, type: 3}
     volume: 1
     pitch: 1
     loop: 1

@@ -11,16 +11,20 @@ public class Man : MonoBehaviour
 
     // Local variables
     private GameManager game;
+    new AudioManager audio;
     private Player player;
     private Rigidbody body;
     private NavMeshAgent agent;
     private Vector3 movement;
     private float speed, detection;
 
+    private bool soundFlag = false;
+
     private void Awake()
     {
 
         game = FindObjectOfType<GameManager>();
+        audio = FindObjectOfType<AudioManager>();
         player = FindObjectOfType<Player>();
         body = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
@@ -33,13 +37,40 @@ public class Man : MonoBehaviour
     private void Update()
     {
 
-        if ((Vector3.Distance(transform.position, player.transform.position) <= detection) && game.status == "play")
+        if (Vector3.Distance(transform.position, player.transform.position) <= detection)
         {
             FollowPlayer();
+
+            if (!soundFlag) // Start playing sound on repeat
+            {
+                soundFlag = true;
+
+                float random = Random.Range(0, 100);
+
+                if (random < 33)
+                {
+                    audio.Play("Man1");
+                }
+                else if (random < 66 && random >= 33)
+                {
+                    audio.Play("Man2");
+                }
+                else
+                {
+                    audio.Play("Man3");
+                }
+                
+            }
         }
         else
         {
             agent.SetDestination(transform.position);
+
+            if (soundFlag)
+            {
+                soundFlag = false;
+
+            }
         }
 
     }

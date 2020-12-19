@@ -33,7 +33,7 @@ public class DeathManager : MonoBehaviour
         if (!hasStarted)
         {
             hasStarted = true;
-            audio.Play("Static");
+            audio.Play("DeathChant");
             StartCoroutine(Crash());
         }
 

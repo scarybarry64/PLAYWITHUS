@@ -9,7 +9,7 @@ public class Sound
 {
 
     const float VOLUME_MIN = 0f;
-    const float VOLUME_MAX = 1f;
+    const float VOLUME_MAX = 2f;
     const float PITCH_MIN = 0.1f;
     const float PITCH_MAX = 3f;
 
